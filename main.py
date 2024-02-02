@@ -26,9 +26,6 @@ class Window(QMainWindow):
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "geocode": geocode,
-            # "z": 10,
-            # "size": (651, 581),
-            # "l": "map"
             "format": "json",
         }
 
@@ -45,6 +42,8 @@ class Window(QMainWindow):
             map_params = {
                 "ll": ",".join([toponym_longitude, toponym_lattitude]),
                 "spn": ",".join([delta, delta]),
+                "z": 10,
+                "size": (651, 581),
                 "l": "map"
 
             }
