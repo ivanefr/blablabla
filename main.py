@@ -22,19 +22,39 @@ class Window(QMainWindow):
 
     def get_image(self):
         geocode = self.line_edit.text()
-        api_server = "http://static-maps.yandex.ru/1.x/"
+        api_server = "http://geocode-maps.yandex.ru/1.x/"
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "geocode": geocode,
-            "z": 10,
-            "size": (651, 581),
-            "l": "map"
+            # "z": 10,
+            # "size": (651, 581),
+            # "l": "map"
+            "format": "json",
         }
 
         response = requests.get(api_server, params=params)
+        if response:
+            json_response = response.json()
+            toponym = json_response["response"]["GeoObjectCollection"][
+                "featureMember"][0]["GeoObject"]
+            toponym_coodrinates = toponym["Point"]["pos"]
+            toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
 
-        with open(self.image_path, "wb") as file:
-            file.write(response.content)
+            delta = "0.005"
+
+            map_params = {
+                "ll": ",".join([toponym_longitude, toponym_lattitude]),
+                "spn": ",".join([delta, delta]),
+                "l": "map"
+
+            }
+
+            map_api_server = "http://static-maps.yandex.ru/1.x/"
+
+            response = requests.get(map_api_server, params=map_params)
+
+            with open(self.image_path, "wb") as file:
+                file.write(response.content)
 
     def KeyPressEvent(self, event):
         print(event)
