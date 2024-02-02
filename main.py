@@ -6,11 +6,15 @@ from PyQt5 import uic
 
 class Window(QMainWindow):
     def __init__(self):
-        super().init()
+        super().__init__()
         self.initUI()
 
     def initUI(self):
         uic.loadUi("main.ui", self)
+        self.search_but.clicked.connect(self.search_click)
+
+    def search_click(self):
+        self.line_edit.setText("blablablablbalbl")
 
 
 if __name__ == "__main__":
