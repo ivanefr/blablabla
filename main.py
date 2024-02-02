@@ -36,9 +36,17 @@ class Window(QMainWindow):
         with open(self.image_path, "wb") as file:
             file.write(response.content)
 
+    def KeyPressEvent(self, event):
+        print(event)
+
+
+def except_hook(cls, exception, traceback):
+    sys.__excepthook__(cls, exception, traceback)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = Window()
     ex.show()
+    sys.excepthook = except_hook
     sys.exit(app.exec_())
