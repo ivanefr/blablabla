@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 import sys
 from PyQt5.QtGui import QPixmap
-from PyQt5 import uic
+from PyQt5 import uic, Qt
 import requests
 
 
@@ -42,8 +42,8 @@ class Window(QMainWindow):
             map_params = {
                 "ll": ",".join([toponym_longitude, toponym_lattitude]),
                 "spn": ",".join([delta, delta]),
-                "z": 10,
-                "size": (651, 581),
+                # "z": 10,
+                # "size": "651,581",
                 "l": "map"
 
             }
@@ -55,8 +55,9 @@ class Window(QMainWindow):
             with open(self.image_path, "wb") as file:
                 file.write(response.content)
 
-    def KeyPressEvent(self, event):
-        print(event)
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_PageUp:
+            ...
 
 
 def except_hook(cls, exception, traceback):
