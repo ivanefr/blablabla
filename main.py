@@ -26,7 +26,9 @@ class Window(QMainWindow):
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "geocode": geocode,
-            # пропиши здесь все параметры пжпжпжпжпжпж
+            "z": 10,
+            "size": (651, 581),
+            "l": "map"
         }
 
         response = requests.get(api_server, params=params)
